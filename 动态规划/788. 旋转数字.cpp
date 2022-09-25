@@ -32,7 +32,7 @@ private:
     static constexpr int check[10] = {0, 0, 1, -1, -1, 1, 1, -1, 0, 1};
 };
 
-//dp 时间复杂度n
+//dp   时间复杂度n 
 class Solution {
 public:
     int rotatedDigits(int N) {
