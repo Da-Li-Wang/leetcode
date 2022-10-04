@@ -82,9 +82,9 @@ public:
                 successor = successor->left;
             }
             if (successorParent->val == cur->val) {
-                successorParent->right = successor->right;
+                successorParent->right = successor->right;//successor无左子树 且为parent右节点
             } else {
-                successorParent->left = successor->right;
+                successorParent->left = successor->right;//successor无左子树 且为parent左节点
             }
             successor->right = cur->right;
             successor->left = cur->left;

@@ -124,7 +124,135 @@ public:
 
 
 
+class Solution {
+public:
+    int commonFactors(int a, int b) {
+       int ans = 1, maxans = __gcd(a,b);
+        for(int i = 2; i < maxans;i++)
+        {
+            if((a % i == 0) && (b % i == 0)) ans++;
+        }
+        return ans;
+    }
+};
+
+class Solution {
+public:
+    int maxSum(vector<vector<int>>& grid) {
+        vector<vector<int>> record;
+        int rows = grid.size(), cols = grid[0].size();
+        for(int i = 0; i < rows; i++)
+        {
+            vector<int> temp(cols);
+            for(int j = 0; j < cols; j++)
+            {
+                if(j == 0)
+                {
+                    temp[j] = grid[i][0];
+                    continue;
+                }
+                else{
+                    temp[j] = temp[j-1] + grid[i][j];
+                }
+            }
+            record.push_back(temp); 
+        }
+
+        int ans = 0;
+        for(int i = 1; i < rows - 1; i++)
+        {
+            for(int j = 1; j < cols - 1; j++)
+            {
+                if(j == 1)
+                {
+                    ans = max(ans, grid[i][j] + record[i-1][j+1] + record[i+1][j+1]);
+                }
+                else
+                {
+                    ans = max(ans, grid[i][j] + record[i-1][j+1] - record[i-1][j-2] + record[i+1][j+1] - record[i+1][j-2]);
+                }
+            }
+        }
+        return ans;
+    }
+};
 
 
+class Solution {
+public:
+    int minimizeXor(int num1, int num2) {
+        int count2 = 0, count1 = 1;
+        while(num2)
+        {
+            if(num2 & 1) count2++;
+            num2 = num2 >> 1;
+        }
+        vector<int> record;
+
+        int copynum1 = num1;
+
+        while(copynum1)
+        {
+            if(copynum1 & 1) record.push_back(count1);
+            count1++;
+            copynum1 >> 1;
+        }
+
+        int ans = 0, n = record.size();
+
+        if(count2 == n) return num1;
+        if(count2 < n)
+        {
+            int j = n-1;
+            while(count2--)
+            {
+                int temp = 1;
+                temp = temp << record[j]-1;
+                ans += temp;
+                j--;
+            }
+
+        }
+        if(count2 > n)
+        {
+            int need = count2 - n;
+            ans = num1;
+            int temp = 1;
+            while(need)
+            {
+                if((ans & temp) == 0)
+                {
+                    ans += temp;
+                    need--;
+                    temp << 1;
+                }
+            }
+        }
+        return ans;
+    }
+};
 
 
+class Solution {
+public:
+    int deleteString(string s) {
+        int ans = 0, begin = 0;
+        while(begin < s.size())
+        {
+            string now;
+            for(int i = 0; i <= (s.size() - begin)/2; i++)
+            {
+                now += s[begin + i];
+                if(s.find(now, begin + i + 1) == begin + i + 1)
+                {
+                    ans++;
+                    begin = begin + i + 1;
+                    now = "";
+                    continue;
+                }
+            }
+            begin++;
+        }
+        return ans;
+    }
+};
