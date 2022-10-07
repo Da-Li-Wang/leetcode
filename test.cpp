@@ -256,3 +256,117 @@ public:
         return ans;
     }
 };
+
+
+class Solution {
+public:
+    int minNumBooths(vector<string>& demand) {
+        map<char, int> record;
+        for(auto it : demand)
+        {
+            map<char, int> temprecord;
+            for(auto itt : it)
+            {
+                temprecord[itt]++;
+            }
+            for(auto itt : temprecord)
+            {
+                record[itt.first] = max(record[itt.first], itt.second);
+            }
+        }
+
+        int ans = 0;
+        for(auto it : record)
+        {
+            ans += it.second;
+        }
+        return ans;
+    }
+};
+
+
+
+ struct TreeNode {
+     int val;
+     TreeNode *left;
+     TreeNode *right;
+     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ };
+
+class Solution {
+public:
+    TreeNode* expandBinaryTree(TreeNode* root) {
+        return dfs(root);
+    }
+    TreeNode* dfs(TreeNode* root)
+    {
+        if(!root) return nullptr;
+        if(!root->left && !root->right) return root;
+        if(root->left)
+        {
+            TreeNode* temp = root->left;
+            root->left = new TreeNode(-1);
+            root->left->left = temp;
+            dfs(temp);
+        }
+        if (root->right)
+        {
+            TreeNode* temp = root->right;
+            root->right = new TreeNode(-1);
+            root->right->right = temp;
+            dfs(temp);
+        }
+        return root;
+    }
+};
+
+class Solution {
+public:
+    int mod = 1e9+7;
+    int beautifulBouquet(vector<int>& flowers, int cnt) {
+        int n = flowers.size(), ans = 0, count = cnt;
+        while (count--)
+        {
+            ans += n;
+            n--;
+            ans %= mod;
+        }
+        n = flowers.size();
+        if(cnt >= n) return ans;
+
+        map<int, int> qian, hou;
+        vector<int> qianrecord(n, -1),hourecord(n, -1); 
+        for(int i = 0; i < n; i++)
+        {
+            if(qian.count(flowers[i]))
+            {
+                qianrecord[i] = qian[flowers[i]];
+            }
+            else
+            {
+                qian[flowers[i]] = i;
+            }
+        }
+
+        for(int i = n-1; i >= 0; i--)
+        {
+            if(hou.count(flowers[i]))
+            {
+                hourecord[i] = hou[flowers[i]];
+            }
+            else
+            {
+                hou[flowers[i]] = i;
+            }
+        }
+
+        
+        
+
+
+        
+
+    }
+};
