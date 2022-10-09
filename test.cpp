@@ -232,55 +232,40 @@ public:
     }
 };
 
-
 class Solution {
 public:
-    int deleteString(string s) {
-        int ans = 0, begin = 0;
-        while(begin < s.size())
+    int hardestWorker(int n, vector<vector<int>>& logs) {
+        int ans = logs[0][0], time = logs[0][1];
+        for(int i = 1; i < logs.size(); i++)
         {
-            string now;
-            for(int i = 0; i <= (s.size() - begin)/2; i++)
+            int temp = logs[i][1] - logs[i-1][1];
+            if(temp > time) 
             {
-                now += s[begin + i];
-                if(s.find(now, begin + i + 1) == begin + i + 1)
-                {
-                    ans++;
-                    begin = begin + i + 1;
-                    now = "";
-                    continue;
-                }
+                time = temp;
+                ans = logs[i][0];
             }
-            begin++;
+            else if(temp == time) ans = min(ans, logs[i][0]);
         }
         return ans;
     }
 };
 
 
-class Solution {
-public:
-    int minNumBooths(vector<string>& demand) {
-        map<char, int> record;
-        for(auto it : demand)
-        {
-            map<char, int> temprecord;
-            for(auto itt : it)
-            {
-                temprecord[itt]++;
-            }
-            for(auto itt : temprecord)
-            {
-                record[itt.first] = max(record[itt.first], itt.second);
-            }
-        }
 
-        int ans = 0;
-        for(auto it : record)
-        {
-            ans += it.second;
-        }
-        return ans;
-    }
-};
-    `
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
