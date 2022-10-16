@@ -250,7 +250,94 @@ public:
     }
 };
 
+class Solution {
+public:
+    int findMaxK(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        set<int> record;
+        int ans = -1;
+        for(int i = 0; i < nums.size(); i++)
+        {
+            if(nums[i] < 0) record.emplace(-nums[i]);
+            else
+            {
+                if(record.emplace(nums[i]))
+                {
+                    ans = nums[i];
+                }
+            }
+        }
+        return ans;
+    }
+};
 
+class Solution {
+public:
+    int countDistinctIntegers(vector<int>& nums) {
+        int n = nums.size();
+        set<int> record;
+        for(int i = 0; i < n; i++)
+        {
+            record.emplace(nums[i]);
+            string temp = to_string(nums[i]);
+            reverse(temp.begin(), temp.end());
+            record.emplace(stoi(temp));
+        }
+        return record.size();
+    }
+};
+
+class Solution {
+public:
+    bool sumOfNumberAndReverse(int num) {
+        for(int i = 0; i <= num; i++)
+        {
+            string temp = to_string(i);
+            reverse(temp.begin(), temp.end());
+            int ri = stoi(temp);
+            if(ri + i == num) return true;
+        }
+        return false;
+    }
+};
+
+
+
+class Solution {
+public:
+    long long countSubarrays(vector<int>& nums, int minK, int maxK) {
+        long long ans = 0;
+        int left = 0, right = 0;
+        
+        while(right < nums.size())
+        {
+            priority_queue<int, vector<int>, less<>> maxque;
+            priority_queue<int, vector<int>, greater<>> minque;
+            while (right < nums.size() && nums[right] <= maxK && nums[right] >= minK)
+            {
+                maxque.emplace(nums[right]);
+                minque.emplace(nums[right]);
+                if (maxque.top() == maxK && minque.top() == minK)
+                {
+                    ans++;
+                }
+                right++;
+            }
+            while (left <= right && maxque.top() == maxK && minque.top() == minK)
+            {
+                if(nums[left] == maxK) maxque.pop();
+                if(nums[left] == minK) minque.pop();
+                if(maxque.top() == maxK && minque.top() == minK) ans++, left++;
+            }
+            
+            right++;
+            left = right;
+                
+        }
+
+        return ans;
+    }
+};
 
 
 
