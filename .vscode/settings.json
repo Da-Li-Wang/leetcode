@@ -3,7 +3,9 @@
         "queue": "cpp",
         "xstring": "cpp",
         "vector": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "utility": "cpp",
+        "stack": "cpp"
     },
     "C_Cpp.errorSquiggles": "Enabled"
 }
