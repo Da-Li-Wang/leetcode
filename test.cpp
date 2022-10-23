@@ -13,6 +13,7 @@
 #include <queue>
 #include <unordered_map>
 #include <stack>
+#include <numeric>
 using namespace std;
 typedef long long ll;
 const int maxn = 1e9 + 10;
@@ -257,10 +258,6 @@ public:
      TreeNode *right;
      TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  };
-
-
-
-
 
 
 

@@ -5,7 +5,9 @@
         "vector": "cpp",
         "map": "cpp",
         "utility": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "algorithm": "cpp",
+        "cstdlib": "cpp"
     },
     "C_Cpp.errorSquiggles": "Enabled"
 }
