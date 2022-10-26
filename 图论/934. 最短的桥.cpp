@@ -48,3 +48,70 @@ public:
         return 0;
     }
 };
+
+
+class Solution {
+public:
+    int r, c, go[4][2] = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+    
+    struct p
+    {
+        int x, y, dis;
+    };
+
+    void dfs(int i, int j, vector<vector<int>>& grid)
+    {
+        grid[i][j] = 2;
+        for(int count = 0; count < 4; count++)
+        {
+            int tx = go[count][0] + i;
+            int ty = go[count][1] + j;
+            if(tx >= 0 && tx < r && ty >=0 && ty < c && grid[tx][ty] == 1)
+            {
+                dfs(tx, ty, grid);
+            }
+        }
+    }
+
+    int shortestBridge(vector<vector<int>>& grid) {
+        r = grid.size(), c = grid[0].size();
+        queue<p> que;
+        bool findfirst = false;
+        
+        for(int i = 0; i < r; i++)
+        {
+            for(int j = 0; j < c; j++)
+            {
+                if(grid[i][j] == 1)
+                {
+                    if(!findfirst)
+                    {
+                        findfirst = true;
+                        dfs(i, j, grid);
+                    }
+                    else
+                    {
+                        que.push(p{i, j, 0});
+                    }
+                } 
+            }
+        }
+
+        while(!que.empty())
+        {
+            auto [x, y, t] = que.front();
+            que.pop();
+            for(int i=0;i<4;i++){ 
+                int xx=x+go[i][0], yy=y+go[i][1];
+                if(xx>=0 && xx<r && yy>=0 && yy<c && grid[xx][yy]!=1){ 
+                    if(grid[xx][yy] == 2) 
+                        return t;
+                    que.emplace(p{xx, yy, t+1}); 
+                    grid[xx][yy] = 1; 
+                }
+            }  
+        }
+
+        return 0; 
+    }
+};
