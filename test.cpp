@@ -462,5 +462,8 @@ public:
 
         for(auto it : queries)ans.push_back(max(lr[it], rl[it]));
         return ans;
-    }
+
+        string ans;
+            }
 };
+

@@ -7,7 +7,8 @@
         "utility": "cpp",
         "stack": "cpp",
         "algorithm": "cpp",
-        "cstdlib": "cpp"
+        "cstdlib": "cpp",
+        "cmath": "cpp"
     },
     "C_Cpp.errorSquiggles": "Enabled"
 }
