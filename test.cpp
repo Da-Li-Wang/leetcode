@@ -467,3 +467,138 @@ public:
             }
 };
 
+class Solution {
+public:
+    vector<int> applyOperations(vector<int>& nums) {
+        int n = nums.size();
+        for(int i = 0; i < n-1; i++)
+        {
+            if(nums[i] == nums[i+1])
+            {
+                nums[i] = 2*nums[i];
+                nums[i+1] = 0;
+            }
+        }
+        vector<int> ans(n);
+        int ptr = 0;
+        for(int i = 0; i < n; i++)
+        {
+            if(nums[i] > 0){
+                ans[ptr] = nums[i];
+                ptr++;
+            } 
+        }
+        return ans;
+    }
+};
+
+class Solution {
+public:
+    long long maximumSubarraySum(vector<int>& nums, int k) {
+        int n = nums.size();
+        long long sum = 0, ans = -1;
+        set<int> record;
+        for (int i = 0, j = 0; j < n; ++j) {
+            if(record.count(nums[j]) || j-i == 3)
+            {
+                record.erase(nums[i]);
+                i++;
+                sum -= nums[i];
+            }
+            record.emplace(nums[j]);
+            sum += nums[j];
+            if(record.size() == 3 && j - i == 2) ans = max(sum, ans);
+        }
+        return ans == -1 ? 0 : ans;
+    }
+};
+
+class Solution {
+public:
+    long long totalCost(vector<int>& costs, int k, int candidates) {
+        //priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> que1;
+        //priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> que2;
+        priority_queue<int, vector<int>, greater<>> que1;
+        priority_queue<int, vector<int>, greater<>> que2;
+        int n = costs.size() ,right = n-1, left = 0;
+        long long ans = 0;
+        while(k--)
+        {
+            while(left <= right && que1.size() < candidates)
+            {
+                que1.push(costs[left]);
+                left++;
+            }
+            while(left <= right && que2.size() < candidates)
+            {
+                que2.push(costs[right]);
+                right--;
+            }
+
+            if(!que1.empty() && !que2.empty() && que1.top() <= que2.top())
+            {
+                ans += que1.top();
+                que1.pop();
+            }
+            else if(!que1.empty() && !que2.empty() && que1.top() > que2.top())
+            {
+                ans += que2.top();
+                que2.pop();
+            }
+            else if(que2.empty() && !que1.empty())
+            {
+                ans += que1.top();
+                que1.pop();
+            }
+            else if(que1.empty() && !que2.empty())
+            {
+                ans += que2.top();
+                que2.pop();
+            }
+        }
+        return ans;
+    }
+};
+
+
+
+class Solution {
+public:
+
+    bool cmp(const int a,const int b)
+    {
+        return abs(a) < abs(b);
+    }
+    long long minimumTotalDistance(vector<int>& robot, vector<vector<int>>& factory) {
+        long long ans;
+        int n = robot.size(), m = factory.size();
+        unordered_map<int, int> fac;
+        
+        sort(robot.begin(), robot.end(), cmp);
+        for(int i = 0; i < m; i++)
+        {
+            factory[i][0] = factory[i][1]; 
+        }
+
+        for(int i = 0; i < n; i++)
+        {
+            int mindis = INT_MAX, minpos = 0;
+            for(int j = 0; j < m; j++)
+            {
+                if(fac[factory[j][0]] > 0)
+                {
+                    if(mindis > abs(robot[i] - factory[j][0]))
+                    {
+                        mindis = abs(robot[i] - factory[j][0]);
+                        minpos = factory[j][0];
+                    }
+                }
+            }
+            fac[minpos]--;
+            ans += mindis;
+        }
+
+        return ans;
+    }
+};
+  
