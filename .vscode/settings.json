@@ -8,7 +8,8 @@
         "stack": "cpp",
         "algorithm": "cpp",
         "cstdlib": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "xtree": "cpp"
     },
     "C_Cpp.errorSquiggles": "Enabled"
 }
