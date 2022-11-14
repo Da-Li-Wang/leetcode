@@ -41,3 +41,12 @@ int main{
    cout << "hello Markdown" << endl;
 }
 ```
+
+$$sum(A)×(n−k)=sum(B)×k$$
+
+$$⇔sum(A)×n=(sum(A)+sum(B))×k$$
+
+$$⇔sum(A)×n=(sum(nums))×k$$
+
+$$⇔\frac{sum(A)}{k} = \frac{sum(nums)}{n}$$
+\frac{1}{n(n+1)
