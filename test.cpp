@@ -602,3 +602,162 @@ public:
     }
 };
   
+
+class Solution {
+public:
+    vector<double> convertTemperature(double celsius) {
+        double one = celsius + 273.15;
+        double two = celsius * 1.8 + 32.0;
+        return {one, two};
+    }
+};
+
+class Solution {
+public:
+    int subarrayLCM(vector<int>& nums, int k) {
+        for(int )
+    }
+};
+
+
+class Solution {
+public:
+        int gcd(int a, int b)
+        {
+            if(b) return gcd(b, a % b);
+            else return a;
+        }
+ 
+    int subarrayLCM(vector<int>& nums, int k) {
+        int len = nums.size();
+        int res = 0;//数组数目
+ 
+        for(int i = 0; i < len; i ++)
+        {
+            int x = nums[i];
+            for(int j = i; j < len; j ++)
+            {
+                int temp = gcd(x, nums[j]);
+                if(x*nums[j]/temp == k) res ++;
+                else break;
+            }
+        }
+ 
+        return res;
+ 
+    }
+};
+
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int getMinSwaps(vector<int> &nums)
+    {
+    map<int, int>mp;    
+    vector<int> sortedNums(nums);
+    sort(sortedNums.begin(), sortedNums.end());
+    for (int i = 0; i < sortedNums.size(); i++)mp[sortedNums[i]] = i ;
+
+    int cnt = 0;
+    for (int i = 0; i < nums.size();i++)
+    {
+        if (nums[i] == sortedNums[i])continue;
+        swap(nums[i], nums[mp[nums[i]]]);
+        cnt++;
+    }
+    return cnt;
+    }
+
+
+    int minimumOperations(TreeNode* root) {
+        int ans = 0;
+        queue<TreeNode*> que;
+        que.push(root);
+        while(!que.empty())
+        {
+            int n = que.size();
+            vector<int> temp;
+            while(n--)
+            {
+                auto it = que.front();
+                que.pop();
+                temp.push_back(it->val);
+                if(root->left) que.push(root->left);
+                if(root->right) que.push(root->right);
+            }
+            ans += getMinSwaps(temp);
+        }
+        return ans;
+    }
+};
+
+class Solution {
+public:
+    #define N 100010
+    #define MP make_pair
+    multiset<pair<int,int> >S;
+    vector<int>in[N],out[N];
+    int maxEvents(vector<vector<int>>& events) {
+        int mx=0,cnt=0;
+        for (auto x:events){
+            int l=x[0],r=x[1];
+            mx=max(mx,r);
+            in[l].push_back(cnt);
+            out[r+1].push_back(cnt);
+            cnt++;
+        }
+        int ans=0;
+        for (int i=1;i<=mx;++i){
+            for (auto x:in[i]) S.insert(MP(events[x][1],x));
+            for (auto x:out[i]){
+                auto it=S.find(MP(events[x][1],x));
+                if (it!=S.end()) S.erase(it);
+            }
+            if (!S.empty()){
+                S.erase(S.begin());
+                ans++;
+            }
+        }
+        return ans;
+    }
+    bool ishui(string str)
+    {
+        int len = str.length();
+	    int j=len-1;
+        bool flag = true;
+	    for(int i = 0;i < j;i++,j--)
+        {
+		    if(str[i]!=str[j]) 
+            {
+			    flag=false;
+			    break;
+		    }
+        }
+        return flag;
+	}
+    int maxPalindromes(string s, int k) {
+        int n = s.size();
+        string temp;
+        vector<vector<int>> record;
+        for(int i = 0, j = 0; j < n; j++)
+        {
+            if(j-i >= k-1)
+            {
+                temp = s.substr(i, j-i+1);
+                if(ishui(temp)) record.push_back({i,j});
+            }
+        }
+        return maxEvents(record);
+    }
+};
