@@ -761,3 +761,267 @@ public:
         return maxEvents(record);
     }
 };
+
+class Solution {
+public:
+    int unequalTriplets(vector<int>& nums) {
+        int n = nums.size(), ans = 0;
+        for(int i = 0; i <n-2; i++)
+        {
+            for(int j = 1; j < n -1; j++)
+            {
+                for(int k = 2; k < n; k++)
+                {
+                    if(nums[i] != nums[j] && nums[i] != nums[k] && nums[j] != nums[k])
+                    {
+                        ans++;
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+};
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> record;
+    void midrecord(TreeNode* root)
+    {
+        if(!root) return;
+        midrecord(root->left);
+        record.push_back(root->val);
+        midrecord(root->right);
+    }
+    int find(vector<int>record,int k)
+    {
+	    int l=0,r=record.size()-1;
+	    while(l<r){
+		    int mid=(l+r+1)/2;
+		    if(record[mid]<=k)
+            {
+			    l=mid;
+		    }
+		    else{
+			    r=mid-1;
+		    }
+	    }
+	    if(record[l]>k) return -1;
+		return record[l];
+    }
+    vector<vector<int>> closestNodes(TreeNode* root, vector<int>& queries) {
+        vector<vector<int>> ans;
+        if(!root) return ans;
+        int n = queries.size();
+        midrecord(root);
+        for(int i = 0; i < n; i++)
+        {
+            int ans1 = -1, ans2 = -1;
+            if(queries[i] > record[record.size()-1])
+            {
+                 ans.push_back({record[record.size()-1], -1});
+                 continue;
+            }
+            if(queries[i] < record[0])
+            {
+                ans.push_back({-1, record[0]});
+                continue;
+            }
+            ans1 = find(record, queries[i]);
+            auto itt = lower_bound(record.begin(), record.end(), queries[i]);
+            if(itt != record.end()) ans2 = *itt;
+            ans.push_back({ans1, ans2});
+        }
+        return ans;
+    }
+};
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int findmin(TreeNode* root,int num)
+    {
+        int ans = -1;
+        if(root->l)
+        return ans;
+    }
+    vector<vector<int>> closestNodes(TreeNode* root, vector<int>& queries) {
+        int n = queries.size();
+
+    }
+};
+
+class Solution {
+public:
+    vector<int> record;
+    void midrecord(TreeNode* root)
+    {
+        if(!root) return;
+        midrecord(root->left);
+        record.push_back(root->val);
+        midrecord(root->right);
+    }
+    int find(vector<int>record,int k)
+    {
+	    int l=0,r=record.size()-1;
+	    while(l<r){
+		    int mid=(l+r+1)/2;
+		    if(record[mid]<=k)
+            {
+			    l=mid;
+		    }
+		    else{
+			    r=mid-1;
+		    }
+	    }
+	    if(record[l]>k) return -1;
+		return record[l];
+    }
+    vector<vector<int>> closestNodes(TreeNode* root, vector<int>& queries) {
+        vector<vector<int>> ans;
+        if(!root) return ans;
+        int n = queries.size();
+        midrecord(root);
+        for(int i = 0; i < n; i++)
+        {
+            int ans1 = -1, ans2 = -1;
+            if(queries[i] > record[record.size()-1])
+            {
+                 ans.push_back({record[record.size()-1], -1});
+                 continue;
+            }
+            if(queries[i] < record[0])
+            {
+                ans.push_back({-1, record[0]});
+                continue;
+            }
+            auto itt = lower_bound(record.begin(), record.end(), queries[i]);
+            if(itt != record.end()) ans2 = *itt;
+            if(itt != record.begin() && *(itt-1) <= queries[i]) ans1 = *(itt-1);
+            ans.push_back({ans1, ans2});
+        }
+        return ans;
+    }
+};
+
+class Solution {
+public:
+    long long minimumFuelCost(vector<vector<int>>& roads, int seats) {
+        int n = roads.size();
+        vector<vector<int>> edges(n+1, vector<int>());
+        for(int i = 0;i < n; i++)
+        {
+            edges[roads[i][0]].push_back(r)
+        }
+    }
+};
+
+class Solution {
+public:
+    vector<int> record;
+    void midrecord(TreeNode* root)
+    {
+        if(!root) return;
+        midrecord(root->left);
+        record.push_back(root->val);
+        midrecord(root->right);
+    }
+    int find(vector<int> &record,int k)
+    {
+	    int l=0,r=record.size()-1, index = -1;
+	    while(l<=r){
+		    int mid=l + (r-l)/2;
+		    if(record[mid]<=k)
+            {
+			    index = mid;
+                l=mid+1;
+		    }
+		    else{
+			    r=mid-1;
+		    }
+	    }
+		
+        return index == -1 ? -1 : record[index];
+    }
+    vector<vector<int>> closestNodes(TreeNode* root, vector<int>& queries) {
+        vector<vector<int>> ans;
+        if(!root) return ans;
+        int n = queries.size();
+        midrecord(root);
+        for(int i = 0; i < n; i++)
+        {
+            int ans1 = -1, ans2 = -1;
+            ans1 = find(record, queries[i]);
+            auto itt = lower_bound(record.begin(), record.end(), queries[i]);
+            if(itt != record.end()) ans2 = *itt;
+            ans.push_back({ans1, ans2});
+        }
+        return ans;
+    }
+};
+
+class Solution {
+public:
+    vector<int> nums;
+    vector<vector<int>> closestNodes(TreeNode* root, vector<int>& queries) {
+        dfs(root);
+        vector<vector<int>> ans;
+        int n = nums.size();
+        for(int i = 0; i < queries.size(); i++) {
+            int x = queries[i];
+            int j = lower_bound(nums.begin(), nums.end(), x) - nums.begin();
+            int k = binarySearch(nums, x);
+            int mx = -1, mi = -1;
+            if(0 <= j && j < n) {
+                mx = nums[j];
+            }
+            if(0 <= k && k < n) {
+                mi = nums[k];
+            }
+            ans.push_back({mi, mx});
+        }
+        return ans;
+    }
+    
+    int binarySearch(vector<int>& nums, int target) {
+        int left = 0, right = nums.size() - 1, index = -1;
+        while(left <= right) {
+            int mid = left + ((right - left) >> 1);
+            if(nums[mid] <= target) {
+                index = mid;
+                left = mid + 1;
+            }else {
+                right = mid - 1;
+            }
+        }
+        return index;
+    }
+    
+    void dfs(TreeNode* root) {
+        if(!root) return;
+        dfs(root->left);
+        nums.push_back(root->val);
+        dfs(root->right);
+    }
+};
